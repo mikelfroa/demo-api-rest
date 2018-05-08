@@ -1,9 +1,7 @@
 package es.pruebas.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.StringJoiner;
 
 @Entity
 public class Community  {
@@ -12,15 +10,17 @@ public class Community  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column
     private String name;
+
+    @Column
     private String description;
 
-    public Community() {}
+    protected  Community() {}
 
     public Community(String name, String description) {
-
-        this.setName(name);
-        this.setDescription(description);
+        this.name =  name;
+        this.description = description;
     }
 
     public int getId() {
@@ -49,10 +49,10 @@ public class Community  {
 
     @Override
     public String toString() {
-        return "Community{" +
-                "id='" + id + '\'' +
-                ", name='" + getName() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                '}';
+        return new StringJoiner(", ", this.getClass().getSimpleName() + "[", "]")
+                .add("id = " + id)
+                .add("name = " + name)
+                .add("description = " + description)
+                .toString();
     }
 }
