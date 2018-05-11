@@ -17,33 +17,30 @@ public class CommunityController {
     @Autowired
     private CommunityRepository communityRepository;
 
-    @GetMapping("/community")
+    @GetMapping("/communities")
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Community> getAllCommunities() {
         logger.debug("Calling retrieve all communities endpoint");
         return  communityRepository.findAll();
     }
 
-    @GetMapping("/community/{id}")
+    @GetMapping("/communities/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Community getCommunityById(@PathVariable("id") int id){
         logger.debug("Calling to get one community {}", id);
         return communityRepository.findById(id).orElse(null);
     }
 
-    @PostMapping("/community")
+    @PostMapping("/communities")
     @ResponseStatus(HttpStatus.CREATED)
     public Community createCommunity(@RequestBody Community communityDetails) {
         logger.debug("community  with id {}", communityDetails.getId() + " updated");
 
-        String name = communityDetails.getName();
-        String description = communityDetails.getDescription();
-        Community community = new Community(name, description);
-        return  communityRepository.save(community);
+        return  communityRepository.save(communityDetails);
 
     }
 
-    @PutMapping("/community/{id}")
+    @PutMapping("/communities/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Community updateCommunity(@PathVariable("id") int communityId,
                                   @RequestBody Community communityDetails) {
@@ -55,7 +52,7 @@ public class CommunityController {
 
     }
 
-    @DeleteMapping("community/{id}")
+    @DeleteMapping("/communities/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String deleteCommunity(@PathVariable("id") int id){
 
