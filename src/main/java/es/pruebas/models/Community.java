@@ -16,7 +16,7 @@ public class Community  {
     @Column
     private String description;
 
-    protected  Community() {}
+    public  Community() {}
 
     public Community(String name, String description) {
         this.name =  name;
